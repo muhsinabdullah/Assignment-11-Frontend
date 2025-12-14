@@ -37,6 +37,14 @@ const Register = () => {
         })
         const mainPhotoUrl = res.data.data.display_url
 
+        const formData = {
+            name,
+            email,
+            pass,
+            mainPhotoUrl
+        }
+
+
         if (res.data.success == true) {
             registerWithEmailAndPassword(email, pass)
                 .then((userCredential) => {
@@ -44,6 +52,14 @@ const Register = () => {
                         displayName: name, photoURL: mainPhotoUrl
                     }).then(() => {
                         setUser(userCredential.user);
+                        axios.post('http://localhost:5000/users', formData)
+                        .then(res =>{
+                            console.log(res.data);
+                        })
+                        .catch(err =>{
+                            console.log(err);
+                            
+                        })
                     }).catch((err) => {
                         console.log(err)
                     });
