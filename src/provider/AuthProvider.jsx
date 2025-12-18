@@ -2,6 +2,8 @@ import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged,
 import React, { createContext, useEffect, useState } from 'react';
 import auth from '../firebase/firebase.config';
 import axios from 'axios';
+import { signOut } from "firebase/auth";
+
 
 
 // eslint-disable-next-line react-refresh/only-export-components
@@ -42,12 +44,24 @@ const AuthProvider = ({ children }) => {
                 setRole(res.data.role)
             })
     }, [user])
+    const logout = () => {
+        setLoading(true);
+        return signOut(auth)
+            .then(() => {
+                setUser(null);
+            })
+            .finally(() => {
+                setLoading(false);
+            });
+    };
     const authData = {
         registerWithEmailAndPassword,
         setUser,
         user,
         handleGoogleSignin,
         loading,
+        role,
+        logout,
     }
     return (
         <AuthContext.Provider value={authData}>

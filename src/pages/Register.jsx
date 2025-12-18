@@ -40,7 +40,7 @@ const Register = () => {
         const formData = {
             name,
             email,
-            pass,
+            password: pass,
             mainPhotoUrl
         }
 
@@ -53,13 +53,13 @@ const Register = () => {
                     }).then(() => {
                         setUser(userCredential.user);
                         axios.post('http://localhost:5000/users', formData)
-                        .then(res =>{
-                            console.log(res.data);
-                        })
-                        .catch(err =>{
-                            console.log(err);
-                            
-                        })
+                            .then(res => {
+                                console.log(res.data);
+                            })
+                            .catch(err => {
+                                console.log(err);
+
+                            })
                     }).catch((err) => {
                         console.log(err)
                     });
