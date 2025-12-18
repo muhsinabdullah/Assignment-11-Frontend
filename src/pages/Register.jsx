@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
@@ -9,6 +9,7 @@ import axios from 'axios';
 const Register = () => {
 
     const { registerWithEmailAndPassword, setUser, handleGoogleSignin } = useContext(AuthContext);
+    const [bloodGroup, setBloodGroup] = useState('');
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -16,6 +17,7 @@ const Register = () => {
         const pass = e.target.password.value;
         const name = e.target.name.value;
         const photoUrl = e.target.photoUrl;
+        const role = e.target.role.value;
         const file = photoUrl.files[0];
 
         const upperCase = /[A-Z]/;
@@ -40,8 +42,10 @@ const Register = () => {
         const formData = {
             name,
             email,
+            bloodGroup: bloodGroup,
             password: pass,
-            mainPhotoUrl
+            mainPhotoUrl,
+            role
         }
 
 
@@ -93,11 +97,37 @@ const Register = () => {
                             <input name='name' type="text" className="input" placeholder="Your full Name" />
                             <label className="label">Email</label>
                             <input name='email' type="email" className="input" placeholder="Email" />
-                            <label className="label">Password</label>
-                            <input name='password' type="password" className="input" placeholder="Password" />
                             <label className="label">Photo URL</label>
                             <input name='photoUrl' type="file" className="input" placeholder="Past Photo URL" />
-                            <div><Link to="/forgetPass" className="link link-hover">Forgot password?</Link></div>
+                            <label className="label">
+                                <span className="label-text">Blood Group</span>
+                            </label>
+                            <select
+                                className="select select-bordered w-full max-w-xs"
+                                value={bloodGroup}
+                                onChange={(e) => setBloodGroup(e.target.value)}
+                                required
+                            >
+                                <option disabled value=''>Select your Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            <label className="label">
+                                <span className="label-text">Role</span>
+                            </label>
+                            <select name='role' defaultValue="Choose Role" className="select select-secondary">
+                                <option disabled={true}>Choose Role</option>
+                                <option value='donar'>Donar</option>
+                                <option value='requester'>Blood Requester</option>
+                            </select>
+                            <label className="label">Password</label>
+                            <input name='password' type="password" className="input" placeholder="Password" />
                             <button onClick={googleSignin} className="btn"><FcGoogle /> Signup with google</button>
                             <div><span>Already have an account?</span> <Link className='text-blue-500' to={'/login'}>Login</Link></div>
                             <button className="btn btn-neutral mt-4">Register</button>
