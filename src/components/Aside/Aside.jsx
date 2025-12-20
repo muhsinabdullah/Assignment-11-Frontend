@@ -31,7 +31,7 @@ const Aside = () => {
           <FaHome /> Dashboard
         </NavLink>
 
-        <NavLink to="/admin/donors" className={linkClass}>
+        <NavLink to="/dashboard/manage-request" className={linkClass}>
           <FaUsers /> Donor Management
         </NavLink>
 

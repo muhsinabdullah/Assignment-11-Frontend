@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
+import { AuthContext } from "../../../provider/AuthProvider";
 
 const AddRequest = () => {
 
     const [showOnHome, setShowOnHome] = useState(false);
+    const {user} = useContext(AuthContext);
     const axiosInstance = useAxios();
 
     const handleAddRequest = (e) => {
@@ -27,6 +29,8 @@ const AddRequest = () => {
             donationTime,
             requestMessage,
             showOnHome,
+            DonarName: user?.name,
+            DonarEmail: user?.email,
         };
 
         axiosInstance.post('/request', formData)
