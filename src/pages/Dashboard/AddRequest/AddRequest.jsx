@@ -1,9 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
+import useAxios from "../../../hooks/useAxios";
 
 const AddRequest = () => {
 
     const [showOnHome, setShowOnHome] = useState(false);
+    const axiosInstance = useAxios();
 
     const handleAddRequest = (e) => {
         e.preventDefault();
@@ -28,7 +29,7 @@ const AddRequest = () => {
             showOnHome,
         };
 
-        axios.post('http://localhost:5000/request', formData)
+        axiosInstance.post('/request', formData)
         .then(res =>{
             console.log(res.data)
         })
