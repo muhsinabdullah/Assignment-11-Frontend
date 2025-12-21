@@ -39,8 +39,8 @@ const Aside = () => {
           <FaHandHoldingMedical /> Blood Requests
         </NavLink>
 
-        <NavLink to="/admin/blood-stock" className={linkClass}>
-          <FaTint /> Blood Stock
+        <NavLink to="/dashboard/all-users" className={linkClass}>
+          <FaTint /> All Users
         </NavLink>
 
         <NavLink to="/admin/reports" className={linkClass}>

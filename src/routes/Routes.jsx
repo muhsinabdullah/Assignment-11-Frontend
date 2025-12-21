@@ -7,6 +7,8 @@ import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import MainDashboard from "../pages/Dashboard/MainDashboard/MainDashboard";
 import AddRequest from "../pages/Dashboard/AddRequest/AddRequest";
 import ManageRequest from "../pages/Dashboard/ManageRequest/ManageRequest";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -30,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path:'dashboard',
-    element: <DashboardLayout />,
+    element: <PrivateRoute><DashboardLayout /></PrivateRoute>,
     children: [
       {
        path: '/dashboard',
@@ -39,6 +41,10 @@ const router = createBrowserRouter([
       {
        path: 'add-request',
        element: <AddRequest />
+      },
+      {
+       path: 'all-users',
+       element: <AllUsers />
       },
       {
        path: 'manage-request',
