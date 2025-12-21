@@ -1,12 +1,29 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import { AuthContext } from "../../../provider/AuthProvider";
+import axios from "axios";
 
 const AddRequest = () => {
 
     const [showOnHome, setShowOnHome] = useState(false);
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const axiosInstance = useAxios();
+
+    const [upazilas, setUpazilas] = useState([]);
+    const [upazila, setUpazila] = useState('');
+    const [districts, setDistricts] = useState([]);
+    const [district, setDistrict] = useState('');
+
+    useEffect(() => {
+        axios.get('/upazila.json')
+            .then(res => {
+                setUpazilas(res.data.upazilas)
+            })
+        axios.get('/district.json')
+            .then(res => {
+                setDistricts(res.data.districts)
+            })
+    }, [])
 
     const handleAddRequest = (e) => {
         e.preventDefault();
@@ -16,6 +33,8 @@ const AddRequest = () => {
         const hospitalName = form.hospitalName.value;
         const fullAddress = form.fullAddress.value;
         const bloodGroup = form.bloodGroup.value;
+        const recipient_upazila = upazila;
+        const recipient_district = district;
         const donationDate = form.donationDate.value;
         const donationTime = form.donationTime.value;
         const requestMessage = form.requestMessage.value;
@@ -25,20 +44,21 @@ const AddRequest = () => {
             hospitalName,
             fullAddress,
             bloodGroup,
+            recipient_upazila,
+            recipient_district,
             donationDate,
             donationTime,
             requestMessage,
             showOnHome,
-            DonarName: user?.name,
-            DonarEmail: user?.email,
+            donation_status: 'pending',
         };
 
-        axiosInstance.post('/request', formData)
-        .then(res =>{
-            console.log(res.data)
-        })
-        .catch(err=>console.log(err)
-        )
+        axiosInstance.post('/requests', formData)
+            .then(res => {
+                console.log(res.data)
+            })
+            .catch(err => console.log(err)
+            )
     }
 
 
@@ -117,15 +137,11 @@ const AddRequest = () => {
                     <label className="label">
                         <span className="label-text">Recipient District</span>
                     </label>
-                    <select
-                        name="recipientDistrict"
-                        className="select select-bordered w-full"
-                    >
-                        <option value="">Select District</option>
-                        <option value="Dhaka">Dhaka</option>
-                        <option value="Sylhet">Sylhet</option>
-                        <option value="Chattogram">Chattogram</option>
-                        <option value="Rajshahi">Rajshahi</option>
+                    <select value={district} onChange={(e) => setDistrict(e.target.value)} className="select select-bordered w-full max-w-xs">
+                        <option disabled selected value=''>Select your district</option>
+                        {
+                            districts.map(d => <option value={d?.name} key={d?.id}>{d?.name}</option>)
+                        }
                     </select>
                 </div>
 
@@ -134,15 +150,11 @@ const AddRequest = () => {
                     <label className="label">
                         <span className="label-text">Recipient Upazila</span>
                     </label>
-                    <select
-                        name="recipientUpazila"
-                        className="select select-bordered w-full"
-                    >
-                        <option value="">Select Upazila</option>
-                        <option value="Dhanmondi">Dhanmondi</option>
-                        <option value="Mirpur">Mirpur</option>
-                        <option value="Uttara">Uttara</option>
-                        <option value="Beanibazar">Beanibazar</option>
+                    <select value={upazila} onChange={(e) => setUpazila(e.target.value)} className="select select-bordered w-full max-w-xs">
+                        <option disabled selected value=''>Select your upazila</option>
+                        {
+                            upazilas.map(u => <option value={u?.name} key={u?.id}>{u?.name}</option>)
+                        }
                     </select>
                 </div>
 

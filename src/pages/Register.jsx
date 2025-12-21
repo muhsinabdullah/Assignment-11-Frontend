@@ -20,7 +20,7 @@ const Register = () => {
         .then(res =>{
             setUpazilas(res.data.upazilas)
         })
-        axios.get('district.json')
+        axios.get('/district.json')
         .then(res =>{
             setDistricts(res.data.districts)
         })
