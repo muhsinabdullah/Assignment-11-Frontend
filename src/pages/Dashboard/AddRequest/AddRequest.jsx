@@ -1,13 +1,14 @@
 import { useContext, useEffect, useState } from "react";
-import useAxios from "../../../hooks/useAxios";
 import { AuthContext } from "../../../provider/AuthProvider";
 import axios from "axios";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AddRequest = () => {
 
     const [showOnHome, setShowOnHome] = useState(false);
     const { user } = useContext(AuthContext);
-    const axiosInstance = useAxios();
+    const axiosSecure = useAxiosSecure();
+
 
     const [upazilas, setUpazilas] = useState([]);
     const [upazila, setUpazila] = useState('');
@@ -53,7 +54,7 @@ const AddRequest = () => {
             donation_status: 'pending',
         };
 
-        axiosInstance.post('/requests', formData)
+        axiosSecure.post('/request', formData)
             .then(res => {
                 console.log(res.data)
             })
