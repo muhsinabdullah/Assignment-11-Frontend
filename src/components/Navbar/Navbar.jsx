@@ -70,7 +70,7 @@ const Navbar = () => {
                     </div>
                   </div>
                   <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
-                    <li><Link to='/dashboard/main'>Dashboard</Link></li>
+                    <li><Link to='/dashboard'>Dashboard</Link></li>
                     <li>
                       <button className="md:flex text-white bg-[#FF6D60] hover:bg-[#ff988f] focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 text-center"
                         onClick={signOut}>Logout</button>

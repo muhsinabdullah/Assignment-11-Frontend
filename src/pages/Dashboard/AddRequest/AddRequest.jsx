@@ -58,7 +58,7 @@ const AddRequest = () => {
                     <input
                         type="text"
                         name="requesterName"
-                        value="Logged In User Name"
+                        value={user?.displayName}
                         readOnly
                         className="input input-bordered w-full bg-gray-100"
                     />
@@ -72,7 +72,7 @@ const AddRequest = () => {
                     <input
                         type="email"
                         name="requesterEmail"
-                        value="user@email.com"
+                        value={user?.email}
                         readOnly
                         className="input input-bordered w-full bg-gray-100"
                     />

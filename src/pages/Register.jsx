@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../provider/AuthProvider';
 import { updateProfile } from 'firebase/auth';
@@ -10,6 +10,21 @@ const Register = () => {
 
     const { registerWithEmailAndPassword, setUser, handleGoogleSignin } = useContext(AuthContext);
     const [bloodGroup, setBloodGroup] = useState('');
+    const [upazilas, setUpazilas] = useState([]);
+    const [upazila, setUpazila] = useState('');
+    const [districts, setDistricts] = useState([]);
+    const [district, setDistrict] = useState('');
+
+    useEffect(()=>{
+        axios.get('/upazila.json')
+        .then(res =>{
+            setUpazilas(res.data.upazilas)
+        })
+        axios.get('district.json')
+        .then(res =>{
+            setDistricts(res.data.districts)
+        })
+    },[])
 
     const handleOnSubmit = async (e) => {
         e.preventDefault();
@@ -17,7 +32,6 @@ const Register = () => {
         const pass = e.target.password.value;
         const name = e.target.name.value;
         const photoUrl = e.target.photoUrl;
-        const role = e.target.role.value;
         const file = photoUrl.files[0];
 
         const upperCase = /[A-Z]/;
@@ -45,7 +59,8 @@ const Register = () => {
             bloodGroup: bloodGroup,
             password: pass,
             mainPhotoUrl,
-            role
+            district,
+            upazila
         }
 
 
@@ -119,12 +134,22 @@ const Register = () => {
                                 <option value="O-">O-</option>
                             </select>
                             <label className="label">
-                                <span className="label-text">Role</span>
+                                <span className="label-text">Upazila</span>
                             </label>
-                            <select name='role' defaultValue="Choose Role" className="select select-secondary">
-                                <option disabled={true}>Choose Role</option>
-                                <option value='donar'>Donar</option>
-                                <option value='requester'>Blood Requester</option>
+                            <select value={upazila} onChange={(e) => setUpazila(e.target.value)} className="select select-bordered w-full max-w-xs">
+                                <option disabled selected value=''>Select your upazila</option>
+                                {
+                                    upazilas.map(u => <option value={u?.name} key={u?.id}>{u?.name}</option>)
+                                }
+                            </select>
+                            <label className="label">
+                                <span className="label-text">District</span>
+                            </label>
+                            <select value={district} onChange={(e) => setDistrict(e.target.value)} className="select select-bordered w-full max-w-xs">
+                                <option disabled selected value=''>Select your district</option>
+                                {
+                                    districts.map(d => <option value={d?.name} key={d?.id}>{d?.name}</option>)
+                                }
                             </select>
                             <label className="label">Password</label>
                             <input name='password' type="password" className="input" placeholder="Password" />
