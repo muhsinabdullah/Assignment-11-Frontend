@@ -35,7 +35,7 @@ const Navbar = () => {
   const links = (
     <>
       <li><NavLink onClick={handleHamburger} to="/" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Home</NavLink></li>
-      <li><NavLink onClick={handleHamburger} to="/donation-requests" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Donation Requests</NavLink></li>
+      <li><NavLink onClick={handleHamburger} to="/search" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Search</NavLink></li>
       <li><NavLink onClick={handleHamburger} to="/donate" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Donate</NavLink></li>
     </>
   );
