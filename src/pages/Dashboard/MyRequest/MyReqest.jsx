@@ -8,11 +8,11 @@ const MyReqest = () => {
     const [totalRequest, setTotalRequest] = useState(0);
     const [itemsPerPage, setitemsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    const {user} = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
     const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        if (!user) return;
+        if (!user || !axiosSecure) return;  // wait until axiosSecure is ready
 
         axiosSecure.get(`/my-request?page=${currentPage - 1}&size=${itemsPerPage}`)
             .then(res => {
@@ -26,15 +26,15 @@ const MyReqest = () => {
     const pages = [...Array(numberOfPages).keys()].map(e => e + 1)
     console.log(pages);
 
-    const handlePrev = ()=>{
-       if(currentPage>1){
-         setCurrentPage(currentPage-1)
-       }
+    const handlePrev = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1)
+        }
     }
-    const handleNext =() =>{
-         if(currentPage < pages.length){
-         setCurrentPage(currentPage+1)
-       }
+    const handleNext = () => {
+        if (currentPage < pages.length) {
+            setCurrentPage(currentPage + 1)
+        }
     }
     return (
         <div>
@@ -64,8 +64,8 @@ const MyReqest = () => {
                 </table>
             </div>
             <div className=' flex justify-center mt-12 gap-4'>
-                <button 
-                onClick={handlePrev} className="btn">Prev</button>
+                <button
+                    onClick={handlePrev} className="btn">Prev</button>
                 {
                     pages.map(page =>
                         <button
@@ -75,9 +75,9 @@ const MyReqest = () => {
                         </button>
                     )
                 }
-                <button 
-                onClick={handleNext} 
-                className="btn">Next</button>
+                <button
+                    onClick={handleNext}
+                    className="btn">Next</button>
             </div>
         </div>
     );

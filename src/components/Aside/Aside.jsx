@@ -17,7 +17,7 @@ import auth from "../../firebase/firebase.config";
 const Aside = () => {
   const { role } = useContext(AuthContext)
 
-  const handleLogout = ()=>{
+  const handleLogout = () => {
     signOut(auth)
   }
 
@@ -38,7 +38,10 @@ const Aside = () => {
 
       {/* Navigation */}
       <nav className="p-4 space-y-2">
-        <NavLink to="/admin/dashboard" className={linkClass}>
+        <NavLink
+          to={role === 'admin' ? "/admin/dashboard" : "/dashboard"}
+          className={linkClass}
+        >
           <FaHome /> Dashboard
         </NavLink>
 
@@ -54,7 +57,7 @@ const Aside = () => {
 
         {
           role == 'admin' && (<NavLink to="/dashboard/all-users" className={linkClass}>
-            <FaTint /> All Users
+            <FaUsers /> All Users
           </NavLink>)
         }
       </nav>
