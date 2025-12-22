@@ -36,8 +36,7 @@ const Navbar = () => {
     <>
       <li><NavLink onClick={handleHamburger} to="/" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Home</NavLink></li>
       <li><NavLink onClick={handleHamburger} to="/donation-requests" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Donation Requests</NavLink></li>
-      <li><NavLink onClick={handleHamburger} to="/blogs" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Blogs</NavLink></li>
-      <li><NavLink onClick={handleHamburger} to="/funding" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Funding</NavLink></li>
+      <li><NavLink onClick={handleHamburger} to="/donate" style={({ isActive }) => ({ color: isActive ? "#FF204E" : color, fontSize: '18px', background: "transparent" })}>Donate</NavLink></li>
     </>
   );
 

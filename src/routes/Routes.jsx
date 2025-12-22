@@ -9,6 +9,9 @@ import AddRequest from "../pages/Dashboard/AddRequest/AddRequest";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import PrivateRoute from "./PrivateRoute";
 import MyReqest from "../pages/Dashboard/MyRequest/MyReqest";
+import Donate from "../pages/Donate/Donate";
+import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
+import PaymentCancel from "../pages/PaymentCancel/PaymentCancel";
 
 
 const router = createBrowserRouter([
@@ -27,6 +30,18 @@ const router = createBrowserRouter([
         {
             path:'/signup',
             Component: Register
+        },
+        {
+            path:'/donate',
+            Component: Donate
+        },
+        {
+            path:'/payment-success',
+            Component: PaymentSuccess
+        },
+        {
+            path:'/payment-cancelled',
+            Component: PaymentCancel
         }
     ]
   },
