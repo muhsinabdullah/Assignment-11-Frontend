@@ -7,6 +7,7 @@ import {
   FaChartBar,
   FaCog,
   FaSignOutAlt,
+  FaRegQuestionCircle,
 } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
@@ -41,8 +42,8 @@ const Aside = () => {
           <FaHome /> Dashboard
         </NavLink>
 
-        <NavLink to="/dashboard/manage-request" className={linkClass}>
-          <FaUsers /> Donor Management
+        <NavLink to="/dashboard/my-request" className={linkClass}>
+          <FaRegQuestionCircle /> My Requests
         </NavLink>
 
         {
@@ -56,14 +57,6 @@ const Aside = () => {
             <FaTint /> All Users
           </NavLink>)
         }
-
-        <NavLink to="/admin/reports" className={linkClass}>
-          <FaChartBar /> Reports
-        </NavLink>
-
-        <NavLink to="/admin/settings" className={linkClass}>
-          <FaCog /> Settings
-        </NavLink>
       </nav>
 
       <div className="p-4 border-t mt-auto">

@@ -10,33 +10,32 @@ const useAxiosSecure = () => {
   const { user,loading } = useContext(AuthContext);
 
   useEffect(() => {
-    if(loading) return;
-    const reqInterceptor = axiosSecure.interceptors.request.use(
-      async (config) => {
-        if (user) {
-          const token = await user.getIdToken();
-          config.headers.authorization = `Bearer ${token}`;
-        }
-        return config;
-      },
-      (error) => Promise.reject(error)
-    );
+  if (loading) return; 
 
-    const resInterceptor = axiosSecure.interceptors.response.use(
-      (response) => response,
-      (error) => {
-        console.error("Axios error:", error);
-        return Promise.reject(error);
-      }
-    );
+  if (!user) return;
 
-    return () => {
-      axiosSecure.interceptors.request.eject(reqInterceptor);
-      axiosSecure.interceptors.response.eject(resInterceptor);
-    };
+  const reqInterceptor = axiosSecure.interceptors.request.use(
+    async (config) => {
+      const token = await user.getIdToken();
+      config.headers.Authorization = `Bearer ${token}`;
+      return config;
+    },
+    (error) => Promise.reject(error)
+  );
 
-  }, [loading, user]);
+  const resInterceptor = axiosSecure.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      console.error("Axios error:", error);
+      return Promise.reject(error);
+    }
+  );
 
+  return () => {
+    axiosSecure.interceptors.request.eject(reqInterceptor);
+    axiosSecure.interceptors.response.eject(resInterceptor);
+  };
+}, [loading, user]);
   return axiosSecure;
 };
 

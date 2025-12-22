@@ -30,6 +30,8 @@ const AddRequest = () => {
         e.preventDefault();
         const form = e.target;
 
+        const requesterName = form.requesterName.value;
+        const requesterEmail = form.requesterEmail.value;
         const recipientName = form.recipientName.value;
         const hospitalName = form.hospitalName.value;
         const fullAddress = form.fullAddress.value;
@@ -41,6 +43,8 @@ const AddRequest = () => {
         const requestMessage = form.requestMessage.value;
 
         const formData = {
+            requesterName,
+            requesterEmail,
             recipientName,
             hospitalName,
             fullAddress,
