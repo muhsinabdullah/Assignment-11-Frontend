@@ -71,7 +71,7 @@ const Register = () => {
                         displayName: name, photoURL: mainPhotoUrl
                     }).then(() => {
                         setUser(userCredential.user);
-                        axios.post('http://localhost:5000/users', formData)
+                        axios.post('https://backend-11-nine.vercel.app/users', formData)
                             .then(res => {
                                 console.log(res.data);
                             })
