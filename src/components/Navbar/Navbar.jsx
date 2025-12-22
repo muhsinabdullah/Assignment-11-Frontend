@@ -46,7 +46,7 @@ const Navbar = () => {
         <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
           <Link to="/" className="flex items-center space-x-3 rtl:space-x-reverse">
             <img src={logo} className="w-16" alt="" />
-            <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#FF204E]">BloodBridge</span>
+            <span className="self-center text-2xl font-semibold whitespace-nowrap text-[#FF204E]">LifeBlood</span>
           </Link>
 
           <div className="flex items-center lg:order-2 space-x-3 lg:space-x-0 rtl:space-x-reverse">
