@@ -8,8 +8,19 @@ import {
   FaCog,
   FaSignOutAlt,
 } from "react-icons/fa";
+import { useContext } from "react";
+import { AuthContext } from "../../provider/AuthProvider";
+import { signOut } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
 
 const Aside = () => {
+  const { role } = useContext(AuthContext)
+
+  const handleLogout = ()=>{
+    signOut(auth)
+  }
+
+
   const linkClass = ({ isActive }) =>
     isActive
       ? "flex items-center gap-3 px-4 py-2 rounded-lg bg-primary text-white"
@@ -22,7 +33,6 @@ const Aside = () => {
         <h1 className="text-2xl font-bold text-primary">
           🩸 Blood Admin
         </h1>
-        <p className="text-sm text-gray-500">Admin Dashboard</p>
       </div>
 
       {/* Navigation */}
@@ -35,13 +45,17 @@ const Aside = () => {
           <FaUsers /> Donor Management
         </NavLink>
 
-        <NavLink to="/dashboard/add-request" className={linkClass}>
-          <FaHandHoldingMedical /> Blood Requests
-        </NavLink>
+        {
+          role == 'donar' && (<NavLink to="/dashboard/add-request" className={linkClass}>
+            <FaHandHoldingMedical /> Blood Requests
+          </NavLink>)
+        }
 
-        <NavLink to="/dashboard/all-users" className={linkClass}>
-          <FaTint /> All Users
-        </NavLink>
+        {
+          role == 'admin' && (<NavLink to="/dashboard/all-users" className={linkClass}>
+            <FaTint /> All Users
+          </NavLink>)
+        }
 
         <NavLink to="/admin/reports" className={linkClass}>
           <FaChartBar /> Reports
@@ -52,10 +66,14 @@ const Aside = () => {
         </NavLink>
       </nav>
 
-      {/* Logout */}
       <div className="p-4 border-t mt-auto">
-        <NavLink to='/' className="flex items-center gap-3 px-4 py-2 w-full rounded-lg text-red-600 hover:bg-red-50">
-          <FaSignOutAlt /> Home
+        <NavLink to='/' className="flex items-center gap-3 px-4 py-2 w-full rounded-lg text-blue-600 hover:bg-blue-50">
+          <FaHome /> Home
+        </NavLink>
+      </div>
+      <div className="p-4 border-t mt-auto">
+        <NavLink onClick={handleLogout} to='/' className="flex items-center gap-3 px-4 py-2 w-full rounded-lg text-red-600 hover:bg-red-100">
+          <FaSignOutAlt /> Logout
         </NavLink>
       </div>
     </aside>

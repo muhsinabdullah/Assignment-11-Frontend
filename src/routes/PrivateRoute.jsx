@@ -3,12 +3,12 @@ import { AuthContext } from '../provider/AuthProvider';
 import { Navigate } from 'react-router';
 
 const PrivateRoute = ({children}) => {
-    const {user, loading} = useContext(AuthContext);
+    const {user, loading, roleLoading, userStatus} = useContext(AuthContext);
 
-    if(loading){
+    if(loading || roleLoading){
         return <p>Loading.......</p>
     }
-    if(!user){
+    if(!user || userStatus == 'blocked'){
         return <Navigate to={'/login'}></Navigate>
     }
 

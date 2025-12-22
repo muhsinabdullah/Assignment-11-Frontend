@@ -6,9 +6,9 @@ import Register from "../pages/Register";
 import DashboardLayout from "../DashboardLayout/DashboardLayout";
 import MainDashboard from "../pages/Dashboard/MainDashboard/MainDashboard";
 import AddRequest from "../pages/Dashboard/AddRequest/AddRequest";
-import ManageRequest from "../pages/Dashboard/ManageRequest/ManageRequest";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 import PrivateRoute from "./PrivateRoute";
+import MyReqest from "../pages/Dashboard/MyRequest/MyReqest";
 
 
 const router = createBrowserRouter([
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
        element: <AllUsers />
       },
       {
-       path: 'manage-request',
-       element: <ManageRequest/>
+       path: 'my-request',
+       element: <MyReqest />
       }
     ]
   }

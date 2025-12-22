@@ -7,10 +7,10 @@ const axiosSecure = axios.create({
 });
 
 const useAxiosSecure = () => {
-  const { user } = useContext(AuthContext);
+  const { user,loading } = useContext(AuthContext);
 
   useEffect(() => {
-
+    if(loading) return;
     const reqInterceptor = axiosSecure.interceptors.request.use(
       async (config) => {
         if (user) {
@@ -35,7 +35,7 @@ const useAxiosSecure = () => {
       axiosSecure.interceptors.response.eject(resInterceptor);
     };
 
-  }, [user]);
+  }, [loading, user]);
 
   return axiosSecure;
 };
